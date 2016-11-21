@@ -1,14 +1,26 @@
 package com.test.spring.core;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 public class App {
 
     private Client client;
     private ConsoleEventLogger eventLogger;
 
+    public App(Client client, ConsoleEventLogger eventLogger) {
+        this.client = client;
+        this.eventLogger = eventLogger;
+    }
+
     public static void main(String[] args) {
-        App app = new App();
-        app.client = new Client("1", "John Smith");
-        app.eventLogger = new ConsoleEventLogger();
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
+        //Получить бин по имени/id
+//        App app = (App) appContext.getBean("app");
+
+        //Получить бин по Классу (явное приведение не требуется)
+        App app = appContext.getBean(App.class);
+
         app.logEvent("Event for User: 1");
     }
 
