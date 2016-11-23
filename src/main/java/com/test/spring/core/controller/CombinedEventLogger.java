@@ -1,16 +1,17 @@
 package com.test.spring.core.controller;
 
 import com.test.spring.core.entity.Event;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
+@Component
 public class CombinedEventLogger implements EventLogger{
-    private Collection<EventLogger> loggers;
 
-    public CombinedEventLogger(Collection<EventLogger> loggers) {
-        super();
-        this.loggers = loggers;
-    }
+    @Resource(name ="combinedEventLoggers")
+    private Collection<EventLogger> loggers;
 
     @Override
     public void logEvent(Event event) {
