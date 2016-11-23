@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
        http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!--Поле в XML файле, для возможности многократного использования-->
+    <util:list id="loggersList">
+        <ref bean="consoleEventLogger"/>
+        <ref bean="fileEventLogger"/>
+    </util:list>
 
     <bean id="consoleEventLogger" class="com.test.spring.core.controller.ConsoleEventLogger"/>
 
@@ -19,11 +29,6 @@
     </bean>
 
     <bean id="combinedEventLogger" class="com.test.spring.core.controller.CombinedEventLogger">
-        <constructor-arg>
-            <list>
-                <ref bean="consoleEventLogger"/>
-                <ref bean="fileEventLogger"/>
-            </list>
-        </constructor-arg>
+        <constructor-arg ref="loggersList"/>
     </bean>
 </beans>
