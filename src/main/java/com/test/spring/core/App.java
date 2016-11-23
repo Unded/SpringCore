@@ -1,31 +1,54 @@
 package com.test.spring.core;
 
-import org.springframework.context.ApplicationContext;
+import com.test.spring.core.controller.EventLogger;
+import com.test.spring.core.entity.Client;
+import com.test.spring.core.entity.Event;
+import com.test.spring.core.entity.EventType;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.util.Map;
+
+import static com.test.spring.core.entity.EventType.ERROR;
+import static com.test.spring.core.entity.EventType.INFO;
 
 public class App {
 
     private Client client;
-    private ConsoleEventLogger eventLogger;
+    private EventLogger defaultLogger;
+    private Map<EventType, EventLogger> loggers;
 
-    public App(Client client, ConsoleEventLogger eventLogger) {
+    public App(Client client, EventLogger eventLogger, Map<EventType, EventLogger> loggers) {
         this.client = client;
-        this.eventLogger = eventLogger;
+        this.defaultLogger = eventLogger;
+        this.loggers = loggers;
     }
 
     public static void main(String[] args) {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("AppContext.xml");
-        //Получить бин по имени/id
-//        App app = (App) appContext.getBean("app");
-
-        //Получить бин по Классу (явное приведение не требуется)
+        ConfigurableApplicationContext appContext = new ClassPathXmlApplicationContext("spring.xml");
         App app = appContext.getBean(App.class);
 
-        app.logEvent("Event for User: 1");
+        Event event = appContext.getBean(Event.class);
+        app.logEvent(INFO, event, "Some event for user: 1");
+
+        event = appContext.getBean(Event.class);
+        app.logEvent(ERROR, event, "Some event for user: 2");
+
+        event = appContext.getBean(Event.class);
+        app.logEvent(null, event, "Some event for user: 3");
+
+        appContext.close();
+//        appContext.registerShutdownHook();
     }
 
-    public void logEvent(String msg){
+    private void logEvent(EventType eventType, Event event, String msg){
         String message = msg.replaceAll(client.getId(), client.getFullName());
-        eventLogger.logEvent(message);
+        event.setMsg(message);
+
+        EventLogger logger = loggers.get(eventType);
+        if (logger == null){
+            logger = defaultLogger;
+        }
+        logger.logEvent(event);
     }
 }

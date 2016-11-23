@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    
+    <import resource="logger.xml"/>
+
+    <bean id="app" class="com.test.spring.core.App">
+        <constructor-arg ref="client"/>
+        <constructor-arg ref="cacheEventLogger"/>
+        <constructor-arg>
+            <map>
+                <entry key="INFO" value-ref="consoleEventLogger"/>
+                <entry key="ERROR" value-ref="combinedEventLogger"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="client" class="com.test.spring.core.entity.Client">
+        <constructor-arg value="1"/>
+        <constructor-arg value="John Smith"/>
+        <property name="greeting" value="Hello!!!"/>
+    </bean>
+
+    <bean id="event" class="com.test.spring.core.entity.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.Date"/>
+        </constructor-arg>
+        <constructor-arg>
+            <bean class="java.text.DateFormat" factory-method="getDateTimeInstance"/>
+        </constructor-arg>
+    </bean>
+
+</beans>
