@@ -7,6 +7,8 @@ import com.test.spring.core.entity.EventType;
 import com.test.spring.core.spring_config.AppConfig;
 import com.test.spring.core.spring_config.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +39,11 @@ public class App {
     }
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
-//        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
-//        appContext.register(AppConfig.class, LoggerConfig.class);
-//        appContext.scan("com.test.spring.core");
-//        appContext.refresh();
+//        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+        appContext.register(AppConfig.class, LoggerConfig.class);
+        appContext.scan("com.test.spring.core");
+        appContext.refresh();
 
         App app = (App) appContext.getBean("app");
 
