@@ -12,44 +12,47 @@ import org.springframework.core.env.Environment;
 import java.text.DateFormat;
 import java.util.Date;
 
-/**Комбинировать в одном классе аннотации @Autowired и @Resource нельзя
+/**
+ * Комбинировать в одном классе аннотации @Autowired и @Resource нельзя
  * вылетает ошибка NullPointerException.
  * Происходит "взрыв мозга" т.к. непонятно какую из этих анотаций использовать
- *
+ * <p>
  * Рекомендуется использовать аннотацию @Autowired на setter`ы,
  * так будет удобнее тестировать приложение
- *
+ * <p>
  * Одним из вариантов для получение данных: Environment.
- * Из среды можно получить */
+ * Из среды можно получить
+ */
 
 @Configuration
 @Import(LoggerConfig.class)
 @PropertySource("classpath:client.properties")
 public class AppConfig {
 
-    private Environment environment;
+//    private Environment environment;
 
-    @Autowired
-    public void setEnvironment(Environment environment){
-        this.environment = environment;
+//    @Autowired
+//    public void setEnvironment(Environment environment){
+//        this.environment = environment;
+//    }
+
+    //    @Bean
+//    public Client client(){
+//        Client client = new Client();
+//        client.setId(environment.getRequiredProperty("id"));
+//        client.setFullName(environment.getRequiredProperty("name"));
+//        client.setGreeting(environment.getRequiredProperty("greeting"));
+//        return client;
+//    }
+
+    @Bean
+    public Date newDate() {
+        return new Date();
     }
 
     @Bean
-    public Date newDate(){
-        return  new Date();
-    }
-
-    @Bean
-    public DateFormat dateFormat(){
+    public DateFormat dateFormat() {
         return DateFormat.getDateTimeInstance();
     }
 
-    @Bean
-    public Client client(){
-        Client client = new Client();
-        client.setId(environment.getRequiredProperty("id"));
-        client.setFullName(environment.getRequiredProperty("name"));
-        client.setGreeting(environment.getRequiredProperty("greeting"));
-        return client;
-    }
 }

@@ -1,12 +1,32 @@
 package com.test.spring.core.entity;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+/**Для получения данных из файла "client.properties"
+ * можно воспользоваться "Environment", как это следално в AppConfig
+ * или описать BEAN прямо в классе.*/
+
+@Component
+@Scope("singleton")
+@PropertySource("classpath:client.properties")
 public class Client {
 
+    @Value("${id}")
     private String id;
+
+    @Value("${name}")
     private String fullName;
+
+    @Value("${greeting}")
     private String greeting;
 
-     public String getId() {
+    public Client() {
+    }
+
+    public String getId() {
         return id;
     }
 
