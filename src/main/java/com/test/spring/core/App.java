@@ -37,26 +37,27 @@ public class App {
     }
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-        ctx.register(AppConfig.class, LoggerConfig.class);
-        ctx.scan("com.test.spring.core");
-        ctx.refresh();
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
+//        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+//        appContext.register(AppConfig.class, LoggerConfig.class);
+//        appContext.scan("com.test.spring.core");
+//        appContext.refresh();
 
-        App app = (App) ctx.getBean("app");
+        App app = (App) appContext.getBean("app");
 
-        Client client = ctx.getBean(Client.class);
+        Client client = appContext.getBean(Client.class);
         System.out.println("Client says: " + client.getGreeting());
 
-        Event event = ctx.getBean(Event.class);
-        app.logEvent(EventType.INFO, event, "Some event for 1");
+        Event event = appContext.getBean(Event.class);
+        app.logEvent(INFO, event, "Some event for 1");
 
-        event = ctx.getBean(Event.class);
-        app.logEvent(EventType.ERROR, event, "Some event for 2");
+        event = appContext.getBean(Event.class);
+        app.logEvent(ERROR, event, "Some event for 2");
 
-        event = ctx.getBean(Event.class);
+        event = appContext.getBean(Event.class);
         app.logEvent(null, event, "Some event for 3");
 
-        ctx.close();
+        appContext.close();
     }
 
     private void logEvent(EventType eventType, Event event, String msg) {

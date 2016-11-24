@@ -1,21 +1,38 @@
 package com.test.spring.core.spring_config;
 
 import com.test.spring.core.entity.Client;
+import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import java.text.DateFormat;
 import java.util.Date;
 
+/**Комбинировать в одном классе аннотации @Autowired и @Resource нельзя
+ * вылетает ошибка NullPointerException.
+ * Происходит "взрыв мозга" т.к. непонятно какую из этих анотаций использовать
+ *
+ * Рекомендуется использовать аннотацию @Autowired на setter`ы,
+ * так будет удобнее тестировать приложение
+ *
+ * Одним из вариантов для получение данных: Environment.
+ * Из среды можно получить */
+
 @Configuration
+@Import(LoggerConfig.class)
 @PropertySource("classpath:client.properties")
 public class AppConfig {
 
-    @Autowired
     private Environment environment;
+
+    @Autowired
+    public void setEnvironment(Environment environment){
+        this.environment = environment;
+    }
 
     @Bean
     public Date newDate(){
