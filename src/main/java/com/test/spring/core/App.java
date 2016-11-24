@@ -41,7 +41,7 @@ public class App {
     public static void main(String[] args) {
 //        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
         AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
-        appContext.register(AppConfig.class, LoggerConfig.class);
+//        appContext.register(AppConfig.class, LoggerConfig.class);
         appContext.scan("com.test.spring.core");
         appContext.refresh();
 
