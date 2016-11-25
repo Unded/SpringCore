@@ -4,6 +4,7 @@ import com.test.spring.core.controller.EventLogger;
 import com.test.spring.core.entity.EventType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,9 +28,10 @@ import static com.test.spring.core.entity.EventType.INFO;
 @ComponentScan("com.test.spring.core")
 public class LoggerConfig {
 
+
 //    @Bean
-//    public static PropertySourcesPlaceholderConfigurer propertyConfigIn() {
-//        return new PropertySourcesPlaceholderConfigurer();
+//    public static PropertyPlaceholderConfigurer propertyConfigIn() {
+//        return new PropertyPlaceholderConfigurer();
 //    }
 
 //    @Resource(name = "consoleEventLogger")

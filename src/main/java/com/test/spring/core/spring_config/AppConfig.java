@@ -1,7 +1,6 @@
 package com.test.spring.core.spring_config;
 
 import com.test.spring.core.entity.Client;
-import jdk.nashorn.internal.ir.annotations.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,21 +28,21 @@ import java.util.Date;
 @PropertySource("classpath:client.properties")
 public class AppConfig {
 
-//    private Environment environment;
+    private Environment environment;
 
-//    @Autowired
-//    public void setEnvironment(Environment environment){
-//        this.environment = environment;
-//    }
+    @Autowired
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
-    //    @Bean
-//    public Client client(){
-//        Client client = new Client();
-//        client.setId(environment.getRequiredProperty("id"));
-//        client.setFullName(environment.getRequiredProperty("name"));
-//        client.setGreeting(environment.getRequiredProperty("greeting"));
-//        return client;
-//    }
+    @Bean
+    public Client client() {
+        Client client = new Client();
+        client.setId(environment.getRequiredProperty("id"));
+        client.setFullName(environment.getRequiredProperty("name"));
+        client.setGreeting(environment.getRequiredProperty("greeting"));
+        return client;
+    }
 
     @Bean
     public Date newDate() {

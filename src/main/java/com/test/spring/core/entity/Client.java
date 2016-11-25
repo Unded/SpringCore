@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
  * можно воспользоваться "Environment", как это следално в AppConfig
  * или описать BEAN прямо в классе.*/
 
-@Component
-@Scope("singleton")
-@PropertySource("classpath:client.properties")
+//@Component
+//@Scope("singleton")
+//@PropertySource("classpath:client.properties")
 public class Client {
 
-    @Value("${id}")
+//    @Value("${id}")
     private String id;
 
-    @Value("${name}")
+//    @Value("${name}")
     private String fullName;
 
-    @Value("${greeting}")
+//    @Value("${greeting}")
     private String greeting;
 
     public Client() {
