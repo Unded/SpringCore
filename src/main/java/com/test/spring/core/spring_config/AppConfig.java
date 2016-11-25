@@ -36,7 +36,7 @@ public class AppConfig {
     }
 
     @Bean
-    public Client client() {
+    public Client clientBean() {
         Client client = new Client();
         client.setId(environment.getRequiredProperty("id"));
         client.setFullName(environment.getRequiredProperty("name"));

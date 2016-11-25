@@ -4,11 +4,7 @@ import com.test.spring.core.controller.EventLogger;
 import com.test.spring.core.entity.Client;
 import com.test.spring.core.entity.Event;
 import com.test.spring.core.entity.EventType;
-import com.test.spring.core.spring_config.AppConfig;
-import com.test.spring.core.spring_config.LoggerConfig;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +20,10 @@ public class App {
     @Autowired
     private Client client;
 
-    @Resource(name = "defaultEventLogger")
+    @Resource(name = "defaultEventLoggerBean")
     private EventLogger defaultLogger;
 
-    @Resource(name = "loggerMap")
+    @Resource(name = "loggerMapBean")
     private Map<EventType, EventLogger> loggers;
 
     public App() {}

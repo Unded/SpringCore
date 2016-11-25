@@ -57,7 +57,7 @@ public class LoggerConfig {
 
 
     @Bean
-    public Map<EventType, EventLogger> loggerMap() {
+    public Map<EventType, EventLogger> loggerMapBean() {
         Map<EventType, EventLogger> map = new EnumMap<>(EventType.class);
         map.put(INFO, consoleEventLogger);
         map.put(ERROR, combinedEventLogger);
@@ -65,7 +65,7 @@ public class LoggerConfig {
     }
 
     @Bean
-    public Collection<EventLogger> combinedEventLoggers() {
+    public Collection<EventLogger> combinedEventLoggersBean() {
         Collection<EventLogger> loggers = new ArrayList<>(2);
         loggers.add(consoleEventLogger);
         loggers.add(fileEventLogger);
@@ -73,7 +73,7 @@ public class LoggerConfig {
     }
 
     @Bean
-    public EventLogger defaultEventLogger() {
+    public EventLogger defaultEventLoggerBean() {
         return cacheFileEventLogger;
     }
 }
