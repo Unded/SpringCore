@@ -1,6 +1,7 @@
 package com.test.spring.core.entity;
 
 import java.text.DateFormat;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,6 +37,11 @@ public class Event {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public static boolean isDay(){
+        LocalTime time = LocalTime.now();
+        return time.getHour() < 18 & time.getHour() > 6;
     }
 
     @Override

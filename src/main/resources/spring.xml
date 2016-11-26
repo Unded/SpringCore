@@ -45,7 +45,12 @@
 
     <bean id="app" class="com.test.spring.core.App">
         <constructor-arg ref="client"/>
-        <constructor-arg ref="cacheEventLogger"/>
+        <!--<constructor-arg ref="cacheEventLogger"/>-->
+
+        <!--Пример использования Языка выражений-->
+        <!--<constructor-arg ref="#{T(com.test.spring.core.entity.Event).isDay() ? consoleEventLogger:cacheEventLogger}"/>-->
+        <constructor-arg ref="#{T(com.test.spring.core.entity.Event).isDay() ? 'cacheEventLogger':'consoleEventLogger'}"/>
+
         <constructor-arg ref="loggerMap"/>
     </bean>
 
